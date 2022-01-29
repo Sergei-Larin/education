@@ -1,7 +1,9 @@
 # Task 4
 
 ### Homework
-* Create users deploy_view and deploy_edit. Give the user deploy_view rights only to view deployments, pods. Give the user deploy_edit full rights to the objects deployments, pods.
+
+## Create users deploy_view and deploy_edit. Give the user deploy_view rights only to view deployments, pods. Give the user deploy_edit full rights to the objects deployments, pods.
+
 ### Create private key for users
 ```bash
 openssl genrsa -out deploy_view.key 2048
@@ -119,7 +121,8 @@ kubectl --context=deploy_edit delete deploy nginx-deployment
 deployment.apps "nginx-deployment" deleted
 ```
 
-* Create namespace prod. Create users prod_admin, prod_view. Give the user prod_admin admin rights on ns prod, give the user prod_view only view rights on namespace prod.
+## Create namespace prod. Create users prod_admin, prod_view. Give the user prod_admin admin rights on ns prod, give the user prod_view only view rights on namespace prod.
+
 ### Create private key for users
 ```bash
 openssl genrsa -out prod_admin.key 2048
@@ -218,12 +221,13 @@ kubectl --context=prod_admin -n prod delete deployment.apps/nginx-deployment
 deployment.apps "nginx-deployment" deleted
 ```
 
-* Create a serviceAccount sa-namespace-admin. Grant full rights to namespace default. Create context, authorize using the created sa, check accesses.
-###Create sa and set role
+## Create a serviceAccount sa-namespace-admin. Grant full rights to namespace default. Create context, authorize using the created sa, check accesses.
+
+### Create sa and set role
 ```bash
 kubectl apply -f sa.yaml
 ```
-###Create context at kubeconfig
+### Create context at kubeconfig
 ```bash
 export TOKENNAME=$(kubectl -n default get serviceaccount/sa-namespace-admin -o jsonpath='{.secrets[0].name}')
 export TOKEN=$(kubectl -n default get secret $TOKENNAME -o jsonpath='{.data.token}' | base64 --decode)
